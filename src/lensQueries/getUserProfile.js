@@ -1,5 +1,5 @@
-import { apolloClient } from './apollo-client';
-import { gql } from '@apollo/client/core'
+import { apolloClient } from "./apollo-client";
+import { gql } from "@apollo/client/core";
 
 const ProfileDocument = `
 query($request:SingleProfileQueryRequest!){
@@ -87,26 +87,22 @@ query($request:SingleProfileQueryRequest!){
       }
     }
   }
-`
-
+`;
 
 export const getUserProfile = async (handle) => {
-    return new Promise(async (resolve, reject) => {
-        try{
-            const result = await apolloClient.query({
-                query: gql(ProfileDocument),
-                variables: {
-                    request:{handle}, //The handle, @w0xter.lens. REMEMBER TO INCLUDE ".lens" 
-                },
-              });
-            
-              resolve(result.data.profile)
-        }catch(err){
-            console.trace(err)
-            reject(err)
-        }
+  return new Promise(async (resolve, reject) => {
+    try {
+      const result = await apolloClient.query({
+        query: gql(ProfileDocument),
+        variables: {
+          request: { handle }, //The handle, @w0xter.lens. REMEMBER TO INCLUDE ".lens"
+        },
+      });
 
-    })
+      resolve(result.data.profile);
+    } catch (err) {
+      console.trace(err);
+      reject(err);
+    }
+  });
 };
-
-
