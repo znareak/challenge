@@ -297,7 +297,7 @@ export const explorePublications = (request) => {
           request,
         },
       });
-      resolve(response);
+      resolve(response?.data?.explorePublications);
     } catch (err) {
       console.trace(err);
       reject(err);
