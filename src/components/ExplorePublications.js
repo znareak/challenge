@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { explorePublications } from "../lensQueries/explorePublications";
+import { Select, Flex, InpuT, Input } from "@mantine/core";
 
 export default function ExplorePublications(props) {
   const init = async () => {
@@ -23,5 +24,29 @@ export default function ExplorePublications(props) {
     init();
   }, []);
 
-  return <div></div>;
+  return (
+    <div>
+      <Flex mt="2rem" gap={8}>
+        <Select
+          label="Sort posts by:"
+          placeholder="Select one"
+          labelProps={{ style: { marginBottom: "0.6rem" } }}
+          style={{ maxWidth: "300px" }}
+          data={[
+            { value: "LATEST", label: "Date Created" },
+            { value: "TOP_COLLECTED", label: "Most Collected" },
+            { value: "TOP_MIRRORED", label: "Most Mirroded" },
+            { value: "TOP_COMMENTED", label: "Most Commented" },
+          ]}
+        />
+        <Input.Wrapper
+          label="Search a post by keywords:"
+          labelProps={{ style: { marginBottom: "0.6rem" } }}v
+          sx={{ width: "calc(100% - 300px)" }} 
+        >
+          <Input type="search" name="search" sx={{ width: "100%" }} />
+        </Input.Wrapper>
+      </Flex>
+    </div>
+  );
 }

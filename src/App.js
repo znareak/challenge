@@ -1,14 +1,14 @@
-import './App.css';
-import ExplorePublications from './components/ExplorePublications';
+import ExplorePublications from "./components/ExplorePublications";
+import Header from "./components/Header";
+import { Container } from "@mantine/core";
 
-
-
-
-
-function App() {
+export default function App() {
   return (
-        <ExplorePublications></ExplorePublications>
+    <Container size="lg" mx="auto" mt={30}>
+      <Header />
+      <main>
+        <ExplorePublications />
+      </main>
+    </Container>
   );
 }
-
-export default App;
