@@ -1,43 +1,16 @@
-import { useEffect, useState } from "react";
-import { explorePublications } from "../lensQueries/explorePublications";
 import { Select, Flex, Input, Grid, Title, Box } from "@mantine/core";
 import { FiSearch } from "react-icons/fi";
+import usePageBottom from "../hooks/usePageBottom";
+import usePosts from "../hooks/usePosts";
 import Post from "./Post";
 import PostsLoader from "./PostsLoader";
 
 const MAX_WIDTH_FILTER = 200;
 
 export default function ExplorePublications() {
-  // This state could be manages by react-query or swc engine from vercel
-  const [posts, setPosts] = useState([]);
-  const [isLoading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const IS_POSTS_AVAILABLE = posts?.items?.length > 0;
-
-  useEffect(() => {
-    (async () => {
-      try {
-        setError(null);
-        const request = {
-          sortCriteria: "LATEST", //You can filter by TOP_COMMENTED | TOP_COLLECTED | TOP_MIRRORED | LATEST
-          noRandomize: true,
-          sources: ["5bba5781-78b5-4927-8d2f-122742817583"],
-          publicationTypes: ["POST"],
-          cursor: '{"timestamp":1,"offset":0}',
-          limit: 24,
-        };
-        const response = await explorePublications(request); // To get next result replace the cursor with the value of response.pageInfo.next
-        console.log(response);
-        setPosts(response);
-        setLoading(false);
-      } catch (err) {
-        console.error(err);
-        setError(err);
-      } finally {
-        setLoading(false);
-      }
-    })();
-  }, []);
+  const { posts, isLoading, error, isPostsAvailable } = usePosts();
+  const isReachedBottom = usePageBottom();
+  console.log({ isReachedBottom });
 
   if (isLoading) return <PostsLoader />;
 
@@ -76,7 +49,7 @@ export default function ExplorePublications() {
         </Title>
       )}
 
-      {IS_POSTS_AVAILABLE && <Grid gutter={10}>{posts.items.map(Post)}</Grid>}
+      {isPostsAvailable && <Grid gutter={10}>{posts.map(Post)}</Grid>}
     </Box>
   );
 }
