@@ -13,6 +13,7 @@ export default function Post({ id, metadata, ...props }) {
         width={width}
         height={height}
         radius="md"
+        loading="lazy"
         withPlaceholder
       />
     </Grid.Col>

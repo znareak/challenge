@@ -2,8 +2,9 @@ import { explorePublications } from "../lensQueries/explorePublications";
 
 export async function getPosts({
   cursor = '{"timestamp":1,"offset":0}',
-  sort = "LATEST",
+  sort = "TOP_COLLECTED",
 } = {}) {
+  console.log({ sort });
   const request = {
     sortCriteria: sort, //You can filter by TOP_COMMENTED | TOP_COLLECTED | TOP_MIRRORED | LATEST
     noRandomize: true,
@@ -12,6 +13,11 @@ export async function getPosts({
     cursor,
     limit: 24,
   };
-  const response = await explorePublications(request); // To get next result replace the cursor with the value of response.pageInfo.next
-  return response;
+  const { items = [], pageInfo: { next, prev, totalCount } = {} } = await explorePublications(request);
+  return {
+    items,
+    next,
+    prev,
+    totalCount,
+  };
 }
