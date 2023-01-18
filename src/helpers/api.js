@@ -4,7 +4,6 @@ export async function getPosts({
   cursor = '{"timestamp":1,"offset":0}',
   sort = "TOP_COLLECTED",
 } = {}) {
-  console.log({ sort });
   const request = {
     sortCriteria: sort, //You can filter by TOP_COMMENTED | TOP_COLLECTED | TOP_MIRRORED | LATEST
     noRandomize: true,

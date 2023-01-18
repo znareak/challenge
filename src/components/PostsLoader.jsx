@@ -17,7 +17,7 @@ export default function PostsLoader() {
       <Grid gutter={10}>
         {fakeCols.map((_, index) => (
           <Grid.Col span={3} key={index}>
-            <Skeleton width="100%" height={200} radius="md" />
+            <Skeleton width="100%" height={260} radius="md" />
           </Grid.Col>
         ))}
       </Grid>

@@ -1,47 +1,22 @@
-import { Select, Flex, Input, Grid, Title, Box } from "@mantine/core";
-import { FiSearch } from "react-icons/fi";
+import { Title, Box } from "@mantine/core";
 import usePosts from "../hooks/usePosts";
-import Post from "./Post";
+import ExploreFilters from "./ExploreFilters";
 import PostsLoader from "./PostsLoader";
-
-const MAX_WIDTH_FILTER = 200;
+import ExplorePostList from "./ExplorePostsList";
 
 export default function ExplorePublications() {
-  const { posts, isLoading, error, isPostsAvailable, sort, onChangeSort } =
-    usePosts();
-
-  if (isLoading) return <PostsLoader />;
+  const {
+    posts,
+    isLoading,
+    error,
+    isPostsAvailable,
+    currentSort,
+    onChangeSort,
+  } = usePosts();
 
   return (
     <Box component="section" mb="2rem">
-      <Flex mt="3rem" mb="2.5rem" gap={8}>
-        <Select
-          defaultValue={sort}
-          onChange={onChangeSort}
-          label="Sort posts by:"
-          placeholder="Select one"
-          labelProps={{ style: { marginBottom: "0.6rem" } }}
-          style={{ flex: `1 1 ${MAX_WIDTH_FILTER}px` }}
-          data={[
-            { value: "LATEST", label: "Date Created" },
-            { value: "TOP_COLLECTED", label: "Most Collected" },
-            { value: "TOP_MIRRORED", label: "Most Mirroded" },
-            { value: "TOP_COMMENTED", label: "Most Commented" },
-          ]}
-        />
-        <Input.Wrapper
-          label="Search a post by keywords:"
-          labelProps={{ style: { marginBottom: "0.6rem" } }}
-          sx={{ flex: `1 1 calc(100% - ${MAX_WIDTH_FILTER}px)` }}
-        >
-          <Input
-            type="search"
-            name="search"
-            sx={{ width: "100%" }}
-            rightSection={<FiSearch />}
-          />
-        </Input.Wrapper>
-      </Flex>
+      <ExploreFilters {...{ currentSort, onChangeSort }} />
 
       {error && (
         <Title order={4}>
@@ -49,7 +24,11 @@ export default function ExplorePublications() {
         </Title>
       )}
 
-      {isPostsAvailable && <Grid gutter={10}>{posts.map(Post)}</Grid>}
+      {isLoading ? (
+        <PostsLoader />
+      ) : (
+        <ExplorePostList {...{ isPostsAvailable, posts }} />
+      )}
       <div id="loadmore" />
     </Box>
   );

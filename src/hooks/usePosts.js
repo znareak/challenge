@@ -1,10 +1,12 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { getPosts } from "../helpers/api";
+import nProgress from "nprogress";
 import usePageBottom from "./usePageBottom";
 
 export default function usePosts() {
   // This state could be managed by react-query or swc of vercel
-  const [sort, setSort] = useState("LATEST");
+  const prevSort = useRef(null);
+  const [currentSort, setSort] = useState("LATEST");
   const [posts, setPosts] = useState([]);
   const [isLoading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -15,22 +17,29 @@ export default function usePosts() {
 
   const onChangeSort = (sort) => {
     setSort(sort);
+    setNextCursor(null);
   };
 
   const getPublications = useCallback(
-    async (cursor) => {
+    async ({ cursor, sorted } = {}) => {
       try {
+        nProgress.start();
         setError(null);
-        const { items, next } = await getPosts({ cursor, sort });
-        setPosts((prevPosts) => [...prevPosts, ...items]);
+        const { items, next } = await getPosts({ cursor, sort: currentSort });
+        setPosts((prevPosts) => {
+          // if the user applies a sort filter then:
+          // it's necessary update the state without join the previus posts in the old state
+          return sorted ? items : [...prevPosts, ...items];
+        });
         setNextCursor(next);
       } catch (err) {
         setError(err);
       } finally {
         setLoading(false);
+        nProgress.done();
       }
     },
-    [sort]
+    [currentSort]
   );
 
   useEffect(() => {
@@ -41,10 +50,13 @@ export default function usePosts() {
   }, [getPublications]);
 
   useEffect(() => {
-    if (isReachedBottom && nextCursor) {
-      getPublications(nextCursor);
+    if (isReachedBottom && nextCursor) getPublications({ cursor: nextCursor });
+
+    if (currentSort !== prevSort.current) {
+      getPublications({ sorted: true });
+      prevSort.current = currentSort;
     }
-  }, [isReachedBottom, nextCursor, getPublications]);
+  }, [isReachedBottom, nextCursor, currentSort, getPublications]);
 
   return {
     posts,
@@ -52,6 +64,6 @@ export default function usePosts() {
     error,
     isPostsAvailable,
     onChangeSort,
-    sort,
+    currentSort,
   };
 }

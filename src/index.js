@@ -4,6 +4,7 @@ import Routers from "./Routers";
 import { MantineProvider } from "@mantine/core";
 
 import "./styles/global.css";
+import "nprogress/nprogress.css";
 import "@fontsource/inter";
 
 const configTheme = {
