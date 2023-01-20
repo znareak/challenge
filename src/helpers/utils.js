@@ -1,5 +1,5 @@
 import { enUS } from "date-fns/locale";
-import { compareDesc, formatDistanceToNowStrict } from "date-fns";
+import { formatDistanceToNowStrict } from "date-fns";
 
 export function getFormattedDistanceToNow(date) {
   const options = {
