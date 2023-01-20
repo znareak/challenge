@@ -2,6 +2,7 @@ import { Image, Grid, Flex, Text, Avatar } from "@mantine/core";
 import { formatIpfImage } from "../helpers/utils";
 import { FiArchive, FiCalendar, FiMessageCircle } from "react-icons/fi";
 import { CgArrowsExchange } from "react-icons/cg";
+import { getFormattedDistanceToNow } from "../helpers/utils";
 
 import useLazyloadImage from "../hooks/useLazyloadImage";
 import placeholder from "../assets/placeholder.svg";
@@ -11,8 +12,8 @@ import styles from "../styles/post.module.scss";
 export default function Post({
   metadata: { media },
   profile = {},
+  createdAt,
   stats,
-  ...props
 }) {
   const { totalAmountOfComments, totalAmountOfMirrors, totalAmountOfCollects } =
     stats;
@@ -20,6 +21,8 @@ export default function Post({
   //   /*content, description,*/
   //   media,
   // } = metadata;
+
+  const date = getFormattedDistanceToNow(new Date(createdAt));
   const { url, width = 300, height = 300 } = media[0]?.original;
   const { handle, picture } = profile;
 
@@ -56,7 +59,7 @@ export default function Post({
           <Text c="lime.5">@{handle}</Text>
         </Flex>
 
-        <Flex gap={15}>
+        <Flex gap={10}>
           <Text sx={{ display: "flex", alignItems: "center" }} mb={3}>
             <FiArchive style={{ marginRight: "5px" }} />
             {totalAmountOfCollects}
@@ -72,6 +75,11 @@ export default function Post({
             {totalAmountOfComments}
           </Text>
         </Flex>
+
+        <Text sx={{ display: "flex", alignItems: "center" }} mb={3}>
+          <FiCalendar style={{ marginRight: "5px" }} />
+          {date}
+        </Text>
       </Flex>
     </Grid.Col>
   );
