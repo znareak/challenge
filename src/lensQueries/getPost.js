@@ -357,10 +357,10 @@ export function getPost(id) {
           },
         },
       });
-      resolve(result);
+      resolve(result?.data?.publication);
     } catch (err) {
       console.trace(err);
-      reject(null);
+      reject(err);
     }
   });
 }

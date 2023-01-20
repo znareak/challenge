@@ -5,7 +5,7 @@ import { Outlet } from "react-router-dom";
 
 export default function Layout() {
   return (
-    <Container size="xl" mx="auto" mt={30}>
+    <Container size="xl" mx="auto" mt={40}>
       <Header />
       <main>
         <Outlet />
