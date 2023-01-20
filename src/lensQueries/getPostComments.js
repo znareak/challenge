@@ -369,7 +369,7 @@ export const getPostComments = (postId, cursor = null) => {
           },
         },
       });
-      resolve(response);
+      resolve(response?.data?.publications?.items);
     } catch (err) {
       console.trace(err);
       reject(err);

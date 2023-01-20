@@ -1,5 +1,4 @@
 import { Flex } from "@mantine/core";
-import { formatIpfImage } from "../helpers/utils";
 import placeholderUser from "../assets/placeholder_user.png";
 import Author from "./Author";
 import Stats from "./Stats";
@@ -13,7 +12,7 @@ export default function PostStats({
   handle,
   createdAt,
 }) {
-  const authorPicture = formatIpfImage(picture?.original?.url) || placeholderUser;
+  const authorPicture = picture?.original?.url || placeholderUser;
 
   return (
     <Flex
