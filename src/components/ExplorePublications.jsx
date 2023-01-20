@@ -1,4 +1,4 @@
-import { Title, Box } from "@mantine/core";
+import { Title, Box, Loader } from "@mantine/core";
 import usePosts from "../hooks/usePosts";
 import ExploreFilters from "./ExploreFilters";
 import PostsLoader from "./PostsLoader";
@@ -8,6 +8,7 @@ export default function ExplorePublications() {
   const {
     posts,
     isLoading,
+    isFetching,
     error,
     isPostsAvailable,
     currentSort,
@@ -29,7 +30,12 @@ export default function ExplorePublications() {
       ) : (
         <ExplorePostList {...{ isPostsAvailable, posts }} />
       )}
+
       <div id="loadmore" />
+      
+      {!isLoading && isFetching && (
+        <Loader sx={{ margin: "8px auto", display: "block" }} />
+      )}
     </Box>
   );
 }

@@ -9,6 +9,7 @@ export default function usePosts() {
   const [currentSort, setSort] = useState("LATEST");
   const [posts, setPosts] = useState([]);
   const [isLoading, setLoading] = useState(true);
+  const [isFetching, setFetching] = useState(false);
   const [error, setError] = useState(null);
   const isPostsAvailable = posts.length > 0;
   const isReachedBottom = usePageBottom({ isLoading });
@@ -25,6 +26,7 @@ export default function usePosts() {
       try {
         nProgress.start();
         setError(null);
+        setFetching(true);
         const { items, next } = await getPosts({ cursor, sort: currentSort });
         setPosts((prevPosts) => {
           // if the user applies a sort filter then:
@@ -36,6 +38,7 @@ export default function usePosts() {
         setError(err);
       } finally {
         setLoading(false);
+        setFetching(false);
         nProgress.done();
       }
     },
@@ -61,6 +64,7 @@ export default function usePosts() {
   return {
     posts,
     isLoading,
+    isFetching,
     error,
     isPostsAvailable,
     onChangeSort,

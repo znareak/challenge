@@ -8,7 +8,7 @@ const usePageBottom = ({ isLoading, node }) => {
     const node = document.getElementById("loadmore");
 
     const intersectionObserver = new IntersectionObserver((entries) => {
-      if (entries[0].intersectionRatio <= 0) return setReachedBottom(false);
+      if (entries[0].intersectionRatio <= 0.5) return setReachedBottom(false);
       setReachedBottom(true);
     });
     intersectionObserver.observe(node);
