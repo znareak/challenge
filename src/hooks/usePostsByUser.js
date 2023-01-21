@@ -1,12 +1,10 @@
 import { useState, useEffect, useCallback, useRef } from "react";
-import { getPosts } from "../helpers/api";
+import { getUserPosts } from "../lensQueries/getUserPosts";
 import nProgress from "nprogress";
 import usePageBottom from "./usePageBottom";
 
-export default function usePostsByUser() {
+export default function usePostsByUser(id) {
   // This state could be managed by react-query or swc of vercel
-  const prevSort = useRef(null);
-  const [currentSort, setSort] = useState("LATEST");
   const [posts, setPosts] = useState([]);
   const [isLoading, setLoading] = useState(true);
   const [isFetching, setFetching] = useState(false);
@@ -15,24 +13,15 @@ export default function usePostsByUser() {
   const isReachedBottom = usePageBottom({ isLoading, isFetching });
   const initialPageLoaded = useRef(false);
   const [nextCursor, setNextCursor] = useState(null);
-
-  const onChangeSort = (sort) => {
-    setSort(sort);
-    setNextCursor(null);
-  };
-
   const getPublications = useCallback(
-    async ({ cursor, sorted } = {}) => {
+    async (cursor) => {
       try {
         nProgress.start();
         setError(null);
         setFetching(true);
-        const { items, next } = await getPosts({ cursor, sort: currentSort });
-        setPosts((prevPosts) => {
-          // if the user applies a sort filter then:
-          // it's necessary update the state without join the previus posts in the old state
-          return sorted ? items : [...prevPosts, ...items];
-        });
+        const { items, pageInfo } = await getUserPosts(id, cursor);
+        const next = pageInfo?.next;
+        setPosts((prevPosts) => [...prevPosts, ...items]);
         setNextCursor(next);
       } catch (err) {
         setError(err);
@@ -42,7 +31,7 @@ export default function usePostsByUser() {
         nProgress.done();
       }
     },
-    [currentSort]
+    [id]
   );
 
   useEffect(() => {
@@ -53,13 +42,8 @@ export default function usePostsByUser() {
   }, [getPublications]);
 
   useEffect(() => {
-    if (isReachedBottom && nextCursor) getPublications({ cursor: nextCursor });
-
-    if (currentSort !== prevSort.current) {
-      getPublications({ sorted: true });
-      prevSort.current = currentSort;
-    }
-  }, [isReachedBottom, nextCursor, currentSort, getPublications]);
+    if (isReachedBottom && nextCursor) getPublications(nextCursor);
+  }, [isReachedBottom, nextCursor, getPublications]);
 
   return {
     posts,
@@ -67,7 +51,5 @@ export default function usePostsByUser() {
     isFetching,
     error,
     isPostsAvailable,
-    onChangeSort,
-    currentSort,
   };
 }

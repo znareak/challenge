@@ -2,7 +2,16 @@ import { Flex, Text, Avatar } from "@mantine/core";
 import { formatIpfImage } from "../helpers/utils";
 import placeholderUser from "../assets/placeholder_user.png";
 
-export default function Author({ src, username, ...props }) {
+export default function Author({
+  src,
+  username,
+  avatarSize = "sm",
+  textMarginTop = 0,
+  textSize = "md",
+  ...props
+}) {
+  if (!username) return null;
+  
   const url = formatIpfImage(src) || placeholderUser;
   return (
     <Flex align="center" mb={10} {...props}>
@@ -11,9 +20,9 @@ export default function Author({ src, username, ...props }) {
         alt={`Creator ${username}`}
         radius="xl"
         mr={5}
-        size={props.avatarSize || "sm"}
+        size={avatarSize}
       />
-      <Text c="lime.5" mt={props.textMarginTop || 0}>
+      <Text c="lime.5" mt={textMarginTop} size={textSize}>
         @{username}
       </Text>
     </Flex>

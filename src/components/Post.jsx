@@ -3,23 +3,19 @@ import { formatIpfImage } from "../helpers/utils";
 import useLazyloadImage from "../hooks/useLazyloadImage";
 import placeholder from "../assets/placeholder.svg";
 import PostStats from "./PostStats";
+import { memo } from "react";
 
-export default function Post({
-  metadata: { media },
-  profile,
-  createdAt,
-  stats,
-}) {
+function Post({ metadata: { media }, profile, createdAt, stats }) {
   const { totalAmountOfComments, totalAmountOfMirrors, totalAmountOfCollects } = stats;
-  const { url, width = 300, height = 300 } = media[0]?.original;
-  const src = formatIpfImage(url);
+  const src = formatIpfImage(media[0]?.original.url);
   const { ref } = useLazyloadImage(src);
+  console.log("RENDER Post");
 
   return (
     <>
       <Image
-        width={width}
-        height={height} 
+        width="100%"
+        height="100%"
         radius="md"
         loading="lazy"
         src={placeholder}
@@ -38,3 +34,5 @@ export default function Post({
     </>
   );
 }
+
+export default memo(Post);

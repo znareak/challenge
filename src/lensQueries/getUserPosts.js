@@ -184,7 +184,7 @@ export const getUserPosts = (profileId, cursor = null) => {
           },
         },
       });
-      resolve(response);
+      resolve(response?.data?.publications);
     } catch (err) {
       console.trace(err);
       reject(err);
