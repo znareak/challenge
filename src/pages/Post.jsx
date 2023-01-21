@@ -1,10 +1,11 @@
 import { useParams } from "react-router-dom";
 import { Grid, Text, Image, Box } from "@mantine/core";
+import { formatIpfImage } from "../helpers/utils";
+import { Link } from "react-router-dom";
 import usePost from "../hooks/usePost";
 import PostComments from "../components/PostComments";
 import Author from "../components/Author";
 import Stats from "../components/Stats";
-import { formatIpfImage } from "../helpers/utils";
 
 const colStyles = (theme) => ({
   backgroundColor: theme.colors.dark[9],
@@ -25,7 +26,7 @@ export default function Post() {
   if (error) return <Text>{error.message}</Text>;
 
   return (
-    <Box mt="2rem">
+    <>
       <Grid gutter={10}>
         <Grid.Col span={6}>
           <Image src={url} alt="Picture post" radius="md" />
@@ -45,21 +46,35 @@ export default function Post() {
 
         <Grid.Col span={6}>
           <Box sx={colStyles} px="1.5rem" py="2rem">
-            <Author src={urlProfile} username={username} mb="2rem" />
-            <Text
-              sx={{
-                maxHeight: "350px",
-                overflowY: "auto",
-                whiteSpace: "pre-line",
-                fontSize: "14px",
-              }}
+            <Link
+              to={`/user/${profile?.handle}`}
+              style={{ textDecoration: "none" }}
             >
-              {content}
-            </Text>
+              <Author src={urlProfile} username={username} mb="1rem" />
+            </Link>
+            <Box
+              sx={(theme) => ({
+                padding: "0.5rem",
+                borderRadius: "4px",
+                backgroundColor: theme.colors.dark[7],
+              })}
+            >
+              <Text
+                sx={{
+                  maxHeight: "350px",
+                  overflowY: "auto",
+                  whiteSpace: "pre-line",
+                  fontSize: "14px",
+                }}
+              >
+                {content}
+              </Text>
+            </Box>
+
             <PostComments />
           </Box>
         </Grid.Col>
       </Grid>
-    </Box>
+    </>
   );
 }

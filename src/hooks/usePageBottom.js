@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 
-const usePageBottom = ({ isLoading, node }) => {
+const usePageBottom = ({ isLoading, isFetching, node }) => {
   const [reachedBottom, setReachedBottom] = useState(false);
 
   useEffect(() => {
-    if (isLoading) return;
+    if (isLoading || isFetching) return;
     const node = document.getElementById("loadmore");
 
     const intersectionObserver = new IntersectionObserver((entries) => {
@@ -13,7 +13,7 @@ const usePageBottom = ({ isLoading, node }) => {
     });
     intersectionObserver.observe(node);
     return () => intersectionObserver.unobserve(node);
-  }, [isLoading, node]);
+  }, [isLoading, isFetching, node]);
 
   return reachedBottom;
 };

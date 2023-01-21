@@ -1,4 +1,4 @@
-import { Title, Box, Loader } from "@mantine/core";
+import { Title, Loader } from "@mantine/core";
 import usePosts from "../hooks/usePosts";
 import ExploreFilters from "./ExploreFilters";
 import PostsLoader from "./PostsLoader";
@@ -16,7 +16,7 @@ export default function ExplorePublications() {
   } = usePosts();
 
   return (
-    <Box component="section" mb="2rem">
+    <>
       <ExploreFilters {...{ currentSort, onChangeSort }} />
 
       {error && (
@@ -32,10 +32,10 @@ export default function ExplorePublications() {
       )}
 
       <div id="loadmore" />
-      
+
       {!isLoading && isFetching && (
         <Loader sx={{ margin: "8px auto", display: "block" }} />
       )}
-    </Box>
+    </>
   );
 }

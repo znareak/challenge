@@ -3,7 +3,7 @@ import { getPosts } from "../helpers/api";
 import nProgress from "nprogress";
 import usePageBottom from "./usePageBottom";
 
-export default function usePosts() {
+export default function usePostsByUser() {
   // This state could be managed by react-query or swc of vercel
   const prevSort = useRef(null);
   const [currentSort, setSort] = useState("LATEST");

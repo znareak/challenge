@@ -1,3 +1,9 @@
+@mixin FlexColumn {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -6,6 +12,20 @@
     sans-serif !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  min-height: 100vh;
+  @include FlexColumn;
+
+  #root,
+  #root > div {
+    flex: 1;
+    @include FlexColumn;
+    main {
+      flex: 1 1 100%;
+    }
+  }
 }
 
 .opacity-gradient {

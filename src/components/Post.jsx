@@ -10,13 +10,7 @@ export default function Post({
   createdAt,
   stats,
 }) {
-  const { totalAmountOfComments, totalAmountOfMirrors, totalAmountOfCollects } =
-    stats;
-  // const {
-  //   /*content, description,*/
-  //   media,
-  // } = metadata;
-
+  const { totalAmountOfComments, totalAmountOfMirrors, totalAmountOfCollects } = stats;
   const { url, width = 300, height = 300 } = media[0]?.original;
   const src = formatIpfImage(url);
   const { ref } = useLazyloadImage(src);

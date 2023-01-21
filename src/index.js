@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import Routers from "./Routers";
 import { MantineProvider } from "@mantine/core";
 
-import "./styles/global.css";
+import "./styles/global.scss";
 import "nprogress/nprogress.css";
 import "@fontsource/inter";
 

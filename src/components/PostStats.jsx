@@ -1,5 +1,4 @@
 import { Flex } from "@mantine/core";
-import placeholderUser from "../assets/placeholder_user.png";
 import Author from "./Author";
 import Stats from "./Stats";
 import styles from "../styles/post.module.scss";
@@ -12,7 +11,7 @@ export default function PostStats({
   handle,
   createdAt,
 }) {
-  const authorPicture = picture?.original?.url || placeholderUser;
+  const authorPicture = picture?.original?.url;
 
   return (
     <Flex

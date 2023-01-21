@@ -11,8 +11,8 @@ export function getFormattedDistanceToNow(date) {
           xHours: `${count}h ago`,
           xMinutes: `${count}mins ago`,
           xMonths: `${count}mo ago`,
-          xSeconds: `${count}now`,
-          xYears: `${count}y`,
+          xSeconds: `${count} secs ago`,
+          xYears: `${count}y ago`,
         };
         return units[unit] || "%d h ago";
       },
