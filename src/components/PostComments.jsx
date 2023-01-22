@@ -25,11 +25,7 @@ export default function PostComments() {
         <Divider
           my="xs"
           labelPosition="center"
-          label={
-            <Text size="md">
-              No one has commented yet 🤐
-            </Text>
-          }
+          label={<Text size="md">No one has commented yet 🤐</Text>}
         />
       </Box>
     );
@@ -46,9 +42,6 @@ export default function PostComments() {
         }
       />
 
-      {/* <Text fw={800} mb="1rem">
-        Comments
-      </Text> */}
       <Box sx={{ maxHeight: "600px", overflowY: "auto" }} pr={10} mt={10}>
         {comments.map((comment) => {
           const { metadata, profile, id } = comment;
@@ -79,6 +72,7 @@ export default function PostComments() {
             </Box>
           );
         })}
+        <div id="loadmore" />
       </Box>
     </Box>
   );

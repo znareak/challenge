@@ -3,6 +3,7 @@ import usePosts from "../hooks/usePosts";
 import ExploreFilters from "./ExploreFilters";
 import PostsLoader from "./PostsLoader";
 import ExplorePostList from "./ExplorePostsList";
+import LoadMore from "./LoadMore";
 
 export default function ExplorePublications() {
   const {
@@ -30,8 +31,8 @@ export default function ExplorePublications() {
       ) : (
         <ExplorePostList {...{ isPostsAvailable, posts }} />
       )}
-
-      <div id="loadmore" />
+      
+      <LoadMore {...{ isLoading, isFetching }} />
 
       {!isLoading && isFetching && (
         <Loader sx={{ margin: "8px auto", display: "block" }} />

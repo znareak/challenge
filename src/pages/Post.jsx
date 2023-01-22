@@ -52,24 +52,26 @@ export default function Post() {
             >
               <Author src={urlProfile} username={username} mb="1rem" />
             </Link>
-            <Box
-              sx={(theme) => ({
-                padding: "0.5rem",
-                borderRadius: "4px",
-                backgroundColor: theme.colors.dark[7],
-              })}
-            >
-              <Text
-                sx={{
-                  maxHeight: "350px",
-                  overflowY: "auto",
-                  whiteSpace: "pre-line",
-                  fontSize: "14px",
-                }}
+            {content && (
+              <Box
+                sx={(theme) => ({
+                  padding: "0.5rem",
+                  borderRadius: "4px",
+                  backgroundColor: theme.colors.dark[7],
+                })}
               >
-                {content}
-              </Text>
-            </Box>
+                <Text
+                  sx={{
+                    maxHeight: "350px",
+                    overflowY: "auto",
+                    whiteSpace: "pre-line",
+                    fontSize: "14px",
+                  }}
+                >
+                  {content}
+                </Text>
+              </Box>
+            )}
 
             <PostComments />
           </Box>
