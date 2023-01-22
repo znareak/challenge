@@ -35,7 +35,7 @@ export default function Post() {
     <>
       <SEO title={`Post of @${username}`} />
       <Grid gutter={10}>
-        <Grid.Col span={6}>
+        <Grid.Col xs={12} sm={6} md={6} lg={6}>
           <Image
             src={placeholder}
             alt="Picture post"
@@ -56,7 +56,7 @@ export default function Post() {
           />
         </Grid.Col>
 
-        <Grid.Col span={6}>
+        <Grid.Col xs={12} sm={6} md={6} lg={6}>
           <Box sx={colStyles} px="1.5rem" py="2rem">
             <Link
               to={`/user/${profile?.handle}`}

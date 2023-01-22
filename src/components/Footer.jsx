@@ -1,12 +1,18 @@
-import { Flex, Text, Box, Button } from "@mantine/core";
+import { Flex, Text, Button, Grid } from "@mantine/core";
 import { FiExternalLink } from "react-icons/fi";
+import styles from "../styles/footer.module.scss";
 
 export default function Footer() {
   return (
     <footer>
-      <Flex justify="space-between" align="center" mt="5rem" mb="1rem">
-        <Box sx={{ textAlign: "center" }}>
-          <Text sx={{ display: "flex" }} size="sm">
+      <Grid
+        justify={{ sm: "center", md: "space-between" }}
+        align="center"
+        mt="5rem"
+        mb="1rem"
+      >
+        <Grid.Col sm={12} md={4} lg={4} sx={{ textAlign: "center" }}>
+          <Text sx={{ display: "flex", justifyContent: "center" }} size="sm">
             Made by your frens at
             <Text ml={5} fw={600}>
               <a
@@ -20,34 +26,36 @@ export default function Footer() {
             </Text>
           </Text>
           <Text size="sm">AI engine from Selas Studio</Text>
-        </Box>
+        </Grid.Col>
 
-        <Flex gap={10}>
-          <Button
-            variant="subtle"
-            color="gray"
-            style={{ fontWeight: "normal" }}
-          >
-            FAQ
-          </Button>
+        <Grid.Col sm={12} md={8} lg={8}>
+          <Flex gap={10} justify="end" className={styles.terms}>
+            <Button
+              variant="subtle"
+              color="gray"
+              style={{ fontWeight: "normal" }}
+            >
+              FAQ
+            </Button>
 
-          <Button
-            variant="subtle"
-            color="gray"
-            style={{ fontWeight: "normal" }}
-          >
-            Terms & Conditions
-          </Button>
+            <Button
+              variant="subtle"
+              color="gray"
+              style={{ fontWeight: "normal" }}
+            >
+              Terms & Conditions
+            </Button>
 
-          <Button
-            variant="subtle"
-            color="gray"
-            style={{ fontWeight: "normal" }}
-          >
-            Privacy Policy
-          </Button>
-        </Flex>
-      </Flex>
+            <Button
+              variant="subtle"
+              color="gray"
+              style={{ fontWeight: "normal" }}
+            >
+              Privacy Policy
+            </Button>
+          </Flex>
+        </Grid.Col>
+      </Grid>
     </footer>
   );
 }

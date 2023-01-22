@@ -14,7 +14,14 @@ export default function ExplorePostsList({
   return (
     <Grid gutter={12} {...props}>
       {posts.map(({ id, ...post }) => (
-        <Grid.Col span={span} className={styles.col} key={id}>
+        <Grid.Col
+          xs={12}
+          sm={6}
+          md={4}
+          lg={span}
+          className={styles.col}
+          key={id}
+        >
           <Link to={`/post/${id}`} style={{ color: "inherit" }}>
             <Post {...post} />
           </Link>

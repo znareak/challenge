@@ -22,7 +22,7 @@ export default function User() {
     <>
       <SEO title={`@${name || handle} profile`} />
       <Grid>
-        <Grid.Col span={2}>
+        <Grid.Col xs={12} sm={12} md={2} lg={2}>
           <Box
             p="1rem"
             sx={(theme) => ({
@@ -83,7 +83,7 @@ export default function User() {
           </Box>
         </Grid.Col>
 
-        <Grid.Col span={9}>
+        <Grid.Col xs={12} sm={12} md={9} lg={9}>
           <PostsUser id={userId} />
         </Grid.Col>
       </Grid>

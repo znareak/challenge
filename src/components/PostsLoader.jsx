@@ -17,7 +17,7 @@ export default function PostsLoader({ withFilter = true }) {
       )}
       <Grid gutter={10} className="opacity-gradient">
         {fakeCols.map((_, index) => (
-          <Grid.Col span={3} key={index}>
+          <Grid.Col xs={12} sm={6} md={4} lg={3} key={index}>
             <Skeleton width="100%" height={260} radius="md" />
           </Grid.Col>
         ))}
