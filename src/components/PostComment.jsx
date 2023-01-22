@@ -7,6 +7,7 @@ export default function PostComment(props) {
   const { metadata, profile, id } = props;
   const { handle, picture } = profile;
   const urlPerfil = picture?.original?.url;
+  
   return (
     <Box
       key={id}
@@ -20,7 +21,7 @@ export default function PostComment(props) {
         },
       })}
     >
-      <Link to={`/user/${profile?.id}`} style={{ textDecoration: "none" }}>
+      <Link to={`/user/${handle}`} style={{ textDecoration: "none" }}>
         <Author src={urlPerfil} username={handle} />
       </Link>
 

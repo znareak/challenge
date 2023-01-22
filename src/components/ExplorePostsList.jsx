@@ -1,5 +1,7 @@
-import { Grid } from "@mantine/core";
+import { Grid, Alert } from "@mantine/core";
 import { Link } from "react-router-dom";
+import { FiAlertCircle } from "react-icons/fi";
+
 import styles from "../styles/post.module.scss";
 import Post from "./Post";
 
@@ -9,8 +11,17 @@ export default function ExplorePostsList({
   span = 3,
   ...props
 }) {
-  if (!isPostsAvailable) return <h2>There aren't posts yet</h2>;
-
+  if (!isPostsAvailable) {
+    return (
+      <Alert
+        icon={<FiAlertCircle size={16} />}
+        title="There is nothing to show"
+        color="gray"
+      >
+        No one has published any post yet
+      </Alert>
+    );
+  }
   return (
     <Grid gutter={12} {...props}>
       {posts.map(({ id, ...post }) => (

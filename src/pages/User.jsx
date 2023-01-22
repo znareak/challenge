@@ -13,7 +13,7 @@ export default function User() {
   const { user, error, isLoading } = useUser(id);
   const { name, handle, id: userId, picture, stats = {} } = user;
   const { totalFollowers, totalFollowing } = stats;
-  console.log({ user });
+
   if (error) return <Error error={error} />;
 
   if (isLoading) return <UserPageLoader />;

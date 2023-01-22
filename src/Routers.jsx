@@ -2,12 +2,15 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./pages/Home";
 import Post from "./pages/Post";
 import User from "./pages/User";
+import NotFound from "./pages/NotFound";
+import FallbackError from "./components/FallbackError";
 import Layout from "./components/Layout";
 
 const routers = createBrowserRouter([
   {
     path: "/",
     element: <Layout />,
+    errorElement: <FallbackError />,
     children: [
       {
         path: "",
@@ -21,11 +24,11 @@ const routers = createBrowserRouter([
         path: "user/:id",
         element: <User />,
       },
+      {
+        path: "*",
+        element: <NotFound />,
+      },
     ],
-  },
-  {
-    path: "*",
-    element: <div>Not Found</div>,
   },
 ]);
 
