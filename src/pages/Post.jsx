@@ -10,6 +10,7 @@ import PostComments from "../components/PostComments";
 import PostPageLoader from "../components/PostPageLoader";
 import Author from "../components/Author";
 import Stats from "../components/Stats";
+import SEO from "../components/SEO";
 
 const colStyles = (theme) => ({
   backgroundColor: theme.colors.dark[9],
@@ -32,6 +33,7 @@ export default function Post() {
 
   return (
     <>
+      <SEO title={`Post of @${username}`} />
       <Grid gutter={10}>
         <Grid.Col span={6}>
           <Image
