@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import { Box, Text, Divider, Loader } from "@mantine/core";
+import Error from "./Error";
 import LoadMore from "./LoadMore";
 import useComments from "../hooks/useComments";
 import PostComment from "./PostComment";
@@ -9,7 +10,7 @@ export default function PostComments() {
   const { id } = useParams();
   const { isLoading, isFetching, comments, error, isCommentsAvailable } = useComments(id);
 
-  if (error) return <Text>A error ocurred: {error}</Text>;
+  if (error) return <Error error={error} mt="2rem" />;
 
   if (isLoading) return <PostCommentsLoader />;
 

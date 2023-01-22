@@ -1,4 +1,5 @@
-import { Title, Loader } from "@mantine/core";
+import { Loader } from "@mantine/core";
+import Error from "./Error";
 import usePosts from "../hooks/usePosts";
 import ExploreFilters from "./ExploreFilters";
 import PostsLoader from "./PostsLoader";
@@ -16,14 +17,10 @@ export default function ExplorePublications() {
     onChangeSort,
   } = usePosts();
 
+  if (error) return <Error error={error} />;
+
   return (
     <>
-      {error && (
-        <Title order={4}>
-          An unexpected error ocurred: <code>{error.message}</code>
-        </Title>
-      )}
-
       {isLoading ? (
         <PostsLoader />
       ) : (
@@ -32,7 +29,7 @@ export default function ExplorePublications() {
           <ExplorePostList {...{ isPostsAvailable, posts }} />
         </>
       )}
-      
+
       {!isLoading && isFetching && (
         <Loader sx={{ margin: "auto", display: "block" }} mt="2rem" />
       )}

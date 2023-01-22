@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { Grid, Text, Image, Box } from "@mantine/core";
 import { formatIpfImage } from "../helpers/utils";
 import { Link } from "react-router-dom";
+import Error from "../components/Error";
 import useLazyloadImage from "../hooks/useLazyloadImage";
 import placeholder from "../assets/placeholder_post.svg";
 import usePost from "../hooks/usePost";
@@ -25,15 +26,20 @@ export default function Post() {
   const { ref } = useLazyloadImage(url);
   const content = metadata?.content;
 
-  if (isLoading) return <PostPageLoader />;
+  if (error) return <Error error={error} />;
 
-  if (error) return <Text>{error.message}</Text>;
+  if (isLoading) return <PostPageLoader />;
 
   return (
     <>
       <Grid gutter={10}>
         <Grid.Col span={6}>
-          <Image src={placeholder} alt="Picture post" radius="md" imageRef={ref} />
+          <Image
+            src={placeholder}
+            alt="Picture post"
+            radius="md"
+            imageRef={ref}
+          />
           <Stats
             {...stats}
             createdAt={createdAt}

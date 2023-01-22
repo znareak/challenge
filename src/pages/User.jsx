@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { Grid, Text, Box, Flex } from "@mantine/core";
 import { FiArchive } from "react-icons/fi";
+import Error from "../components/Error";
 import useUser from "../hooks/useUser";
 import Author from "../components/Author";
 import PostsUser from "../components/PostsUser";
@@ -11,10 +12,10 @@ export default function User() {
   const { name, id: userId, picture, stats = {} } = user;
   const { totalFollowers, totalFollowing } = stats;
 
+  if (error) return <Error error={error} />;
+  
   if (isLoading) return <Text>Loading profile...</Text>;
 
-  if (error) return <Text>A error ocurred: {error}</Text>;
- 
   return (
     <Grid>
       <Grid.Col span={2}>
