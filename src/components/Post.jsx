@@ -9,8 +9,7 @@ function Post({ metadata: { media }, profile, createdAt, stats }) {
   const { totalAmountOfComments, totalAmountOfMirrors, totalAmountOfCollects } = stats;
   const src = formatIpfImage(media[0]?.original.url);
   const { ref } = useLazyloadImage(src);
-  console.log("RENDER Post");
-
+  
   return (
     <>
       <Image

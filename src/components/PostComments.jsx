@@ -1,12 +1,14 @@
 import { useParams } from "react-router-dom";
-import { Box, Text, Divider } from "@mantine/core";
+import { Box, Text, Divider, Loader } from "@mantine/core";
 import { Link } from "react-router-dom";
+import LoadMore from "./LoadMore";
 import useComments from "../hooks/useComments";
 import Author from "./Author";
 
 export default function PostComments() {
   const { id } = useParams();
-  const { isLoading, comments, error, isCommentsAvailable } = useComments(id);
+  const { isLoading, isFetching, comments, error, isCommentsAvailable } =
+    useComments(id);
 
   if (error) return <Text>A error ocurred: {error}</Text>;
 
@@ -72,7 +74,10 @@ export default function PostComments() {
             </Box>
           );
         })}
-        <div id="loadmore" />
+        {!isLoading && isFetching && (
+          <Loader sx={{ margin: "auto", display: "block" }} mt="0.3rem" />
+        )}
+        <LoadMore {...{ isLoading, isFetching }} />
       </Box>
     </Box>
   );

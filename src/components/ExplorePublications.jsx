@@ -18,8 +18,6 @@ export default function ExplorePublications() {
 
   return (
     <>
-      <ExploreFilters {...{ currentSort, onChangeSort }} />
-
       {error && (
         <Title order={4}>
           An unexpected error ocurred: <code>{error.message}</code>
@@ -29,14 +27,16 @@ export default function ExplorePublications() {
       {isLoading ? (
         <PostsLoader />
       ) : (
-        <ExplorePostList {...{ isPostsAvailable, posts }} />
+        <>
+          <ExploreFilters {...{ currentSort, onChangeSort }} />
+          <ExplorePostList {...{ isPostsAvailable, posts }} />
+        </>
       )}
       
-      <LoadMore {...{ isLoading, isFetching }} />
-
       {!isLoading && isFetching && (
-        <Loader sx={{ margin: "8px auto", display: "block" }} />
+        <Loader sx={{ margin: "auto", display: "block" }} mt="2rem" />
       )}
+      <LoadMore {...{ isLoading, isFetching }} />
     </>
   );
 }
