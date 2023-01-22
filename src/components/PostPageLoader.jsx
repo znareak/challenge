@@ -1,7 +1,5 @@
 import { Skeleton, Grid } from "@mantine/core";
 
-import React from "react";
-
 export default function PostPageLoader() {
   return (
     <Grid gutter={10} className="opacity-gradient">

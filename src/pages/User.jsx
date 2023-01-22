@@ -5,6 +5,7 @@ import Error from "../components/Error";
 import useUser from "../hooks/useUser";
 import Author from "../components/Author";
 import PostsUser from "../components/PostsUser";
+import UserPageLoader from "../components/UserPageLoader";
 
 export default function User() {
   const { id } = useParams();
@@ -13,8 +14,8 @@ export default function User() {
   const { totalFollowers, totalFollowing } = stats;
 
   if (error) return <Error error={error} />;
-  
-  if (isLoading) return <Text>Loading profile...</Text>;
+
+  if (isLoading) return <UserPageLoader />;
 
   return (
     <Grid>
