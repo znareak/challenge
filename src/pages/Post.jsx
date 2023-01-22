@@ -2,8 +2,11 @@ import { useParams } from "react-router-dom";
 import { Grid, Text, Image, Box } from "@mantine/core";
 import { formatIpfImage } from "../helpers/utils";
 import { Link } from "react-router-dom";
+import useLazyloadImage from "../hooks/useLazyloadImage";
+import placeholder from "../assets/placeholder_post.svg";
 import usePost from "../hooks/usePost";
 import PostComments from "../components/PostComments";
+import PostPageLoader from "../components/PostPageLoader";
 import Author from "../components/Author";
 import Stats from "../components/Stats";
 
@@ -19,9 +22,10 @@ export default function Post() {
   const username = profile?.handle;
   const urlProfile = profile?.picture?.original?.url;
   const url = formatIpfImage(metadata?.media[0].original.url);
+  const { ref } = useLazyloadImage(url);
   const content = metadata?.content;
 
-  if (isLoading) return <Text>Loading Post...</Text>;
+  if (isLoading) return <PostPageLoader />;
 
   if (error) return <Text>{error.message}</Text>;
 
@@ -29,7 +33,7 @@ export default function Post() {
     <>
       <Grid gutter={10}>
         <Grid.Col span={6}>
-          <Image src={url} alt="Picture post" radius="md" />
+          <Image src={placeholder} alt="Picture post" radius="md" imageRef={ref} />
           <Stats
             {...stats}
             createdAt={createdAt}

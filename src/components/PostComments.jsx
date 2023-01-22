@@ -1,18 +1,17 @@
 import { useParams } from "react-router-dom";
 import { Box, Text, Divider, Loader } from "@mantine/core";
-import { Link } from "react-router-dom";
 import LoadMore from "./LoadMore";
 import useComments from "../hooks/useComments";
-import Author from "./Author";
+import PostComment from "./PostComment";
+import PostCommentsLoader from "./PostCommentsLoader";
 
 export default function PostComments() {
   const { id } = useParams();
-  const { isLoading, isFetching, comments, error, isCommentsAvailable } =
-    useComments(id);
+  const { isLoading, isFetching, comments, error, isCommentsAvailable } = useComments(id);
 
   if (error) return <Text>A error ocurred: {error}</Text>;
 
-  if (isLoading) return <Text>Loadin comments ...</Text>;
+  if (isLoading) return <PostCommentsLoader />;
 
   if (!isCommentsAvailable)
     return (
@@ -45,35 +44,10 @@ export default function PostComments() {
       />
 
       <Box sx={{ maxHeight: "600px", overflowY: "auto" }} pr={10} mt={10}>
-        {comments.map((comment) => {
-          const { metadata, profile, id } = comment;
-          const { handle, picture } = profile;
-          const urlPerfil = picture?.original?.url;
+        {comments.map((comment) => (
+          <PostComment {...comment} />
+        ))}
 
-          return (
-            <Box
-              key={id}
-              p="0.5rem"
-              mt="0.8rem"
-              sx={(theme) => ({
-                backgroundColor: theme.colors.dark[8],
-                borderRadius: "4px",
-                "&:not(:last-of-type)": {
-                  marginBottom: "0.5rem",
-                },
-              })}
-            >
-              <Link
-                to={`/user/${profile?.id}`}
-                style={{ textDecoration: "none" }}
-              >
-                <Author src={urlPerfil} username={handle} />
-              </Link>
-
-              <Text ml="2rem">{metadata.content}</Text>
-            </Box>
-          );
-        })}
         {!isLoading && isFetching && (
           <Loader sx={{ margin: "auto", display: "block" }} mt="0.3rem" />
         )}

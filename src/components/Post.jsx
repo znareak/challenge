@@ -1,15 +1,15 @@
 import { Image } from "@mantine/core";
+import { memo } from "react";
 import { formatIpfImage } from "../helpers/utils";
 import useLazyloadImage from "../hooks/useLazyloadImage";
 import placeholder from "../assets/placeholder.svg";
 import PostStats from "./PostStats";
-import { memo } from "react";
 
 function Post({ metadata: { media }, profile, createdAt, stats }) {
   const { totalAmountOfComments, totalAmountOfMirrors, totalAmountOfCollects } = stats;
   const src = formatIpfImage(media[0]?.original.url);
   const { ref } = useLazyloadImage(src);
-  
+
   return (
     <>
       <Image
